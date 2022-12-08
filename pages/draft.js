@@ -1,5 +1,24 @@
 import Head from 'next/head'
+import { useState, useEffect } from 'react'
+import { terms } from '../data/term_sheet'
+
 export default function Draft() {
+
+  const [data, setData] = useState({})
+  useEffect(() => {
+    setData(terms)
+  }, []);
+
+  const handleChange = (event) => {
+    let updatedValue = data[event.target.id]
+    updatedValue.value = event.target.value
+    setData({
+      ...data,
+      [event.target.id]: updatedValue
+    })
+  }
+
+
   return (
     <div className="flex flex-col items-center justify-center py-10">
       <Head>
@@ -13,12 +32,25 @@ export default function Draft() {
         </h1>
       </main>
 
-      <div className="mt-6 flex max-w-4xl flex-wrap items-center justify-around sm:w-full">
-        <div className="mt-6 w-96 rounded-xl border p-6 text-left">
+      <div className="mt-6 flex max-w-4xl flex-wrap justify-around sm:w-full">
+        <div className="mt-6 w-6/12 rounded-xl border p-6 text-left">
           <h3 className="text-2xl font-bold">Terms</h3>
-          <p className="mt-4 text-xl">
-            Find in-depth information about Next.js features and its API.
-          </p>
+          {Object.keys(data).map((term) =>
+            <p className="mt-4 text-xl">
+              <span className="font-bold">{data[term].display_name}</span>:
+              <input
+                className="shadow appearance-none border rounded-lg w-1/2 text-lg py-1 ml-2 px-3 text-gray-700 bg-gray-50 leading-tight focus:outline-none focus:shadow-outline"
+                id={term}
+                type="text"
+                value={data[term].value}
+                onChange={handleChange}>
+              </input>
+              <br />
+              {data[term].text &&
+                <span className="text-base">{data[term].text.substring(0, 100)}...</span>
+              }
+            </p>
+          )}
         </div>
 
         <div className="mt-6 w-96 rounded-xl border p-6 text-left">
