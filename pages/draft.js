@@ -26,8 +26,13 @@ export default function Draft() {
   }
 
   const handSelectChange = event => {
-    setDocument(event.target.value);
+    setDocument(event.target.value)
   };
+
+  const termIncludesDoc = (term, doc) => {
+    const docs = data[term].docs || []
+    return docs.includes(doc)
+  }
 
 
   return (
@@ -56,7 +61,7 @@ export default function Draft() {
       <div className="mt-6 flex max-w-4xl flex-wrap justify-around sm:w-full">
         <div className="mt-6 w-6/12 rounded-xl border p-6 text-left">
           <h3 className="text-2xl pl-2 font-bold">Terms</h3>
-          {Object.keys(data).map((term) =>
+          {Object.keys(data).filter((term) => termIncludesDoc(term, doc)).map((term) =>
             <p key={term} onClick={(e) => setActiveTerm(term)} className={`mt-4 p-2 text-xl rounded-md ${activeTerm === term ? "bg-slate-50" : "hover:bg-slate-100"} ${activeTerm !== term && activeTerm !== "" ? "opacity-40" : ""}`}>
               <span className="font-bold">{data[term].display_name}</span>:
               <input
