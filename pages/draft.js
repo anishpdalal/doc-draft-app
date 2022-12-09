@@ -26,7 +26,21 @@ export default function Draft() {
       ...terms,
       [event.target.id]: updatedValue
     })
-
+    let updatedClauses = clauses
+      .map((clause) => {
+        if (clause.terms.includes(activeTerm)){
+          let updatedClause = clause
+          let startStr = clause.term_config[activeTerm].start
+          let start = clause.text.indexOf(startStr)
+          let endStr = clause.term_config[activeTerm].end
+          let end = clause.text.indexOf(endStr)
+          updatedClause.text = clause.text.substring(0, start + startStr.length + 1) + event.target.value + clause.text.substring(end, clause.text.length)
+          return updatedClause
+        } else {
+          return clause
+        }
+      })
+    setClauses(updatedClauses)
   }
 
   const handSelectChange = event => {
@@ -67,7 +81,11 @@ export default function Draft() {
         <div className="mt-6 w-6/12 rounded-xl border p-6 text-left">
           <h3 className="text-2xl pl-2 font-bold">Terms</h3>
           {Object.keys(terms).filter((term) => termIncludesDoc(term, doc)).map((term) =>
-            <p key={term} onClick={(e) => setActiveTerm(term)} className={`mt-4 p-2 text-xl rounded-md ${activeTerm === term ? "bg-slate-50" : "hover:bg-slate-100"} ${activeTerm !== term && activeTerm !== "" ? "opacity-40" : ""}`}>
+            <p
+              key={term}
+              onClick={(e) => setActiveTerm(term)}
+              className={`mt-4 p-2 text-xl rounded-md ${activeTerm === term ? "bg-slate-50" : "hover:bg-slate-100"} ${activeTerm !== term && activeTerm !== "" ? "opacity-40" : ""}`}
+            >
               <span className="font-bold">{terms[term].display_name}</span>:
               <input
                 className="shadow appearance-none border rounded-lg w-1/2 text-lg py-1 ml-2 px-3 text-gray-700 bg-gray-50 leading-tight focus:outline-none focus:shadow-outline"
