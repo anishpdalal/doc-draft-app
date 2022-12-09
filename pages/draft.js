@@ -1,6 +1,7 @@
 import Head from 'next/head'
 import { useState, useEffect } from 'react'
-import { terms } from '../data/term_sheet'
+import { termSheet } from '../data/term_sheet'
+import { clauseTemplates } from '../data/clauses'
 
 export default function Draft() {
 
@@ -11,26 +12,30 @@ export default function Draft() {
 
   const [doc, setDocument] = useState(options[0].value)
   const [activeTerm, setActiveTerm] = useState("")
-  const [data, setData] = useState({})
+  const [terms, setTerms] = useState({})
+  const [clauses, setClauses] = useState([])
   useEffect(() => {
-    setData(terms)
+    setTerms(termSheet)
+    setClauses(clauseTemplates)
   }, []);
 
   const handleChange = (event) => {
-    let updatedValue = data[event.target.id]
+    let updatedValue = terms[event.target.id]
     updatedValue.value = event.target.value
-    setData({
-      ...data,
+    setTerms({
+      ...terms,
       [event.target.id]: updatedValue
     })
+
   }
 
   const handSelectChange = event => {
     setDocument(event.target.value)
+    setActiveTerm("")
   };
 
   const termIncludesDoc = (term, doc) => {
-    const docs = data[term].docs || []
+    const docs = terms[term].docs || []
     return docs.includes(doc)
   }
 
@@ -61,22 +66,22 @@ export default function Draft() {
       <div className="mt-6 flex max-w-4xl flex-wrap justify-around sm:w-full">
         <div className="mt-6 w-6/12 rounded-xl border p-6 text-left">
           <h3 className="text-2xl pl-2 font-bold">Terms</h3>
-          {Object.keys(data).filter((term) => termIncludesDoc(term, doc)).map((term) =>
+          {Object.keys(terms).filter((term) => termIncludesDoc(term, doc)).map((term) =>
             <p key={term} onClick={(e) => setActiveTerm(term)} className={`mt-4 p-2 text-xl rounded-md ${activeTerm === term ? "bg-slate-50" : "hover:bg-slate-100"} ${activeTerm !== term && activeTerm !== "" ? "opacity-40" : ""}`}>
-              <span className="font-bold">{data[term].display_name}</span>:
+              <span className="font-bold">{terms[term].display_name}</span>:
               <input
                 className="shadow appearance-none border rounded-lg w-1/2 text-lg py-1 ml-2 px-3 text-gray-700 bg-gray-50 leading-tight focus:outline-none focus:shadow-outline"
                 id={term}
                 type="text"
-                value={data[term].value}
+                value={terms[term].value}
                 onChange={handleChange}>
               </input>
               <br />
-              {data[term].text && term !== activeTerm && 
-                <span className="text-base">{data[term].text.split(" ", 10).join(" ")}...</span>
+              {terms[term].text && term !== activeTerm && 
+                <span className="text-base">{terms[term].text.split(" ", 10).join(" ")}...</span>
               }
-              {data[term].text && term === activeTerm &&
-                <span className="text-base">{data[term].text}</span>
+              {terms[term].text && term === activeTerm &&
+                <span className="text-base">{terms[term].text}</span>
               }
             </p>
           )}
@@ -84,9 +89,11 @@ export default function Draft() {
 
         <div className="mt-6 w-96 rounded-xl border p-6 text-left">
           <h3 className="text-2xl font-bold">Clauses</h3>
-          <p className="mt-4 text-xl">
-            Learn about Next.js in an interactive course with quizzes!
-          </p>
+          {clauses.filter((clause) => clause.terms.includes(activeTerm)).map((clause, index) => 
+            <p key={index} className="mt-4 text-base">
+              {clause.text}
+            </p>
+          )}
         </div>
       </div>
     </div>
