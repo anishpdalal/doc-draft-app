@@ -4,6 +4,12 @@ import { terms } from '../data/term_sheet'
 
 export default function Draft() {
 
+  const options = [
+    {value: "", text: "-- Choose a Document --"},
+    {value: "rofr", text: "NVCA Right of First Refusal"},
+  ]
+
+  const [doc, setDocument] = useState(options[0].value)
   const [activeTerm, setActiveTerm] = useState("")
   const [data, setData] = useState({})
   useEffect(() => {
@@ -19,6 +25,10 @@ export default function Draft() {
     })
   }
 
+  const handSelectChange = event => {
+    setDocument(event.target.value);
+  };
+
 
   return (
     <div className="flex flex-col items-center justify-center py-10">
@@ -32,6 +42,16 @@ export default function Draft() {
           Doc Draft
         </h1>
       </main>
+
+      <div className="mt-6 flex max-w-sm justify-around sm:w-full">
+        <select value={doc} onChange={handSelectChange} id="docs" className="w-8/12 bg-gray-50 border border-gray-300 text-gray-900 text-md rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+          {options.map((option) => (
+            <option key={option.value} value={option.value}>
+              {option.text}
+            </option>
+          ))}
+        </select>
+      </div>
 
       <div className="mt-6 flex max-w-4xl flex-wrap justify-around sm:w-full">
         <div className="mt-6 w-6/12 rounded-xl border p-6 text-left">
