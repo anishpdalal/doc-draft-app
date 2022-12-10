@@ -56,15 +56,14 @@ export default function Draft() {
     setActiveTerm("")
   };
 
-  const termIncludesDoc = (term, doc) => {
+  const includeTerm = (term, doc) => {
     const docs = terms[term].docs || []
-    return docs.includes(doc)
+    return docs.includes(doc) && terms[term].display_name
   }
 
   const getClauseText = (clause, index, activeTerm) => {
     const value = clause.template[activeTerm].value
-    console.log(clause.template[activeTerm])
-    if (value === null) {
+    if (value === "") {
       return <p key={index} className="mt-4 text-base">{clause.text}</p>
     } else {
       const startStr = clause.template[activeTerm].startStr
@@ -102,7 +101,7 @@ export default function Draft() {
       <div className="mt-6 flex max-w-4xl flex-wrap justify-around sm:w-full">
         <div className="mt-6 w-6/12 rounded-xl border p-6 text-left">
           <h3 className="text-2xl pl-2 font-bold">Terms</h3>
-          {Object.keys(terms).filter((term) => termIncludesDoc(term, doc)).map((term) =>
+          {Object.keys(terms).filter((term) => includeTerm(term, doc)).map((term) =>
             <p
               key={term}
               onClick={(e) => setActiveTerm(term)}
