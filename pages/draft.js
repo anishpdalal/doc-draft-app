@@ -16,6 +16,13 @@ export default function Draft() {
   const [clauses, setClauses] = useState([])
   useEffect(() => {
     setTerms(termSheet)
+    Object.keys(termSheet).forEach((term) => {
+      clauseTemplates.forEach((clause) => {
+        if (clause.terms.includes(term)){
+          clause.template[term].value = termSheet[term].value
+        }
+      })
+    })
     setClauses(clauseTemplates)
   }, []);
 
@@ -56,7 +63,7 @@ export default function Draft() {
 
   const getClauseText = (clause, index, activeTerm) => {
     const value = clause.template[activeTerm].value
-    console.log(value)
+    console.log(clause.template[activeTerm])
     if (value === null) {
       return <p key={index} className="mt-4 text-base">{clause.text}</p>
     } else {

@@ -8,7 +8,7 @@ const termSheet = {
   "company_name": {
     "docs": ["rofr"],
     "display_name": "Company Name",
-    "value": "",
+    "value": "NLP Labs",
     "text": null
   }
 }
