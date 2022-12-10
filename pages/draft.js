@@ -20,21 +20,22 @@ export default function Draft() {
   }, []);
 
   const handleChange = (event) => {
-    let updatedValue = terms[event.target.id]
+    const updatedValue = terms[event.target.id]
     updatedValue.value = event.target.value
     setTerms({
       ...terms,
       [event.target.id]: updatedValue
     })
-    let updatedClauses = clauses
+    const updatedClauses = clauses
       .map((clause) => {
         if (clause.terms.includes(activeTerm)){
           let updatedClause = clause
-          let startStr = clause.term_config[activeTerm].start
-          let start = clause.text.indexOf(startStr)
-          let endStr = clause.term_config[activeTerm].end
-          let end = clause.text.indexOf(endStr)
-          updatedClause.text = clause.text.substring(0, start + startStr.length + 1) + event.target.value + clause.text.substring(end, clause.text.length)
+          const startStr = clause.template[activeTerm].startStr
+          const startIdx = clause.text.indexOf(startStr)
+          const endStr = clause.template[activeTerm].endStr
+          const endIdx = clause.text.indexOf(endStr)
+          updatedClause.template[activeTerm].value = event.target.value
+          updatedClause.text = clause.text.substring(0, startIdx + startStr.length + 1) + event.target.value + clause.text.substring(endIdx, clause.text.length)
           return updatedClause
         } else {
           return clause
@@ -51,6 +52,20 @@ export default function Draft() {
   const termIncludesDoc = (term, doc) => {
     const docs = terms[term].docs || []
     return docs.includes(doc)
+  }
+
+  const getClauseText = (clause, index, activeTerm) => {
+    const value = clause.template[activeTerm].value
+    console.log(value)
+    if (value === null) {
+      return <p key={index} className="mt-4 text-base">{clause.text}</p>
+    } else {
+      const startStr = clause.template[activeTerm].startStr
+      const startIdx = clause.text.indexOf(startStr)
+      const endStr = clause.template[activeTerm].endStr
+      const endIdx = clause.text.indexOf(endStr)
+      return <p key={index} className="mt-4 text-base">{clause.text.substring(0, startIdx + startStr.length + 1)}<span className="underline decoration-sky-500 decoration-4">{value}</span>{clause.text.substring(endIdx, clause.text.length)}</p>
+    }
   }
 
 
@@ -107,10 +122,8 @@ export default function Draft() {
 
         <div className="mt-6 w-96 rounded-xl border p-6 text-left">
           <h3 className="text-2xl font-bold">Clauses</h3>
-          {clauses.filter((clause) => clause.terms.includes(activeTerm)).map((clause, index) => 
-            <p key={index} className="mt-4 text-base">
-              {clause.text}
-            </p>
+          {clauses.filter((clause) => clause.terms.includes(activeTerm)).map((clause, index) =>
+            getClauseText(clause, index, activeTerm)
           )}
         </div>
       </div>
