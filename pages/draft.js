@@ -98,8 +98,8 @@ export default function Draft() {
         </select>
       </div>
 
-      <div class="mt-6 flex justify-center">
-        <button type="button" class="inline-block px-6 py-2.5 bg-sky-500 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-sky-700 hover:shadow-lg focus:bg-sky-800 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out">Generate Docs</button>
+      <div className="mt-6 flex justify-center">
+        <button type="button" className="inline-block px-6 py-2.5 bg-sky-500 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-sky-700 hover:shadow-lg focus:bg-sky-800 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out">Download Documents</button>
       </div>
 
       <div className="mt-6 flex max-w-4xl flex-wrap justify-around sm:w-full">
