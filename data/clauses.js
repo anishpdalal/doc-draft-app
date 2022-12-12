@@ -175,6 +175,25 @@ const clauseTemplates = [
         "value": null,
       }
     }
+  },
+  {
+    "text": "“Common Stock” means shares of Common Stock of the Company, [__] par value per share.",
+    "doc": "rofr",
+    "terms": ["common_stock_par_value"],
+    "template": {
+      "common_stock_par_value": {
+        "positions": [
+          {
+            "startStr": "Company,",
+            "endStr": " par value per share.",
+            "paragraph": 11,
+            "run": 2,
+            "runStartStr": "Company, ",
+            "runEndStr": " par value per share.",
+          }
+        ]
+      }
+    }
   }
 ]
 
