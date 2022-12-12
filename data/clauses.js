@@ -16,6 +16,7 @@ const getMonth = () => {
 const clauseTemplates = [
   {
     "text": `This Right of First Refusal and Co-Sale Agreement (this “Agreement”), is made as of ${getMonth()} ${getDayofMonthWithSuffix()}, ${getYear()} by and among [_____], a Delaware corporation (the “Company”), the Investors (as defined below) listed on Schedule A and the Key Holders (as defined below) listed on Schedule B.`,
+    "doc": "rofr",
     "template": {
       "company_name": {
         "startStr": "among",
