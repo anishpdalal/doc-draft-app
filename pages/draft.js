@@ -74,6 +74,26 @@ export default function Draft() {
     }
   }
 
+  const handleDownloadButton = async () => {
+    let url = "https://anishpdalal--doc-draft-fastapi-app-dev.modal.run/generate"
+    let requestOptions = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(clauses),
+    }
+    await fetch(url, requestOptions).then(res => res.json())
+    url = "https://anishpdalal--doc-draft-fastapi-app-dev.modal.run/rofr"
+    await fetch(url)
+      .then((res) => res.blob())
+      .then((blob) => {
+        let url = window.URL.createObjectURL(blob)
+        let link = document.createElement('a')
+        link.href = url
+        link.download = `${doc}.docx`
+        link.click()
+      })
+  }
+
 
   return (
     <div className="flex flex-col items-center justify-center py-10">
@@ -99,7 +119,7 @@ export default function Draft() {
       </div>
 
       <div className="mt-6 flex justify-center">
-        <button type="button" className="inline-block px-6 py-2.5 bg-sky-500 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-sky-700 hover:shadow-lg focus:bg-sky-800 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out">Download Documents</button>
+        <button type="button" onClick={handleDownloadButton} className="inline-block px-6 py-2.5 bg-sky-500 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-sky-700 hover:shadow-lg focus:bg-sky-800 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out">Download Documents</button>
       </div>
 
       <div className="mt-6 flex max-w-4xl flex-wrap justify-around sm:w-full">

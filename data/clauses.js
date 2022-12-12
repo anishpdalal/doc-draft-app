@@ -27,7 +27,7 @@ const clauseTemplates = [
       },
       "day": {
         "startStr": "as of",
-        "endStr": "by",
+        "endStr": " by",
         "value": `${getMonth()} ${getDayofMonthWithSuffix()}, ${getYear()}`,
         "paragraph": 1,
         "run": 4
