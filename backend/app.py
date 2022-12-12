@@ -1,5 +1,6 @@
 from fastapi import FastAPI, Request
 from fastapi.responses import FileResponse
+from starlette.middleware.cors import CORSMiddleware
 
 import modal
 
@@ -10,14 +11,21 @@ volume = "document-store"
 
 DOC_DIR = "/docs"
 
+web_app.add_middleware(
+    CORSMiddleware,
+    allow_credentials=True,
+    allow_origins=["*"],
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 
 @web_app.post("/generate")
-def generate_docx(request: Request):
+async def generate_docx(request: Request):
     import docx
     doc = docx.Document(f"{DOC_DIR}/NVCA-2020-Right-of-First-Refusal-Template.docx")
     
-    templates = request.json()
-
+    templates = await request.json()
     for template in templates:
         if template["doc"] == "rofr":
             for _, config in template["template"].items():
