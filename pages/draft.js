@@ -37,12 +37,14 @@ export default function Draft() {
       .map((clause) => {
         if (clause.terms.includes(activeTerm)){
           let updatedClause = clause
-          const startStr = clause.template[activeTerm].startStr
-          const startIdx = clause.text.indexOf(startStr)
-          const endStr = clause.template[activeTerm].endStr
-          const endIdx = clause.text.indexOf(endStr)
+          clause.template[activeTerm].positions.forEach((position) => {
+            let startStr = position.startStr
+            let startIdx = clause.text.indexOf(startStr)
+            let endStr = position.endStr
+            let endIdx = clause.text.indexOf(endStr)
+            updatedClause.text = clause.text.substring(0, startIdx + startStr.length + 1) + event.target.value + clause.text.substring(endIdx, clause.text.length)
+          })
           updatedClause.template[activeTerm].value = event.target.value
-          updatedClause.text = clause.text.substring(0, startIdx + startStr.length + 1) + event.target.value + clause.text.substring(endIdx, clause.text.length)
           return updatedClause
         } else {
           return clause
@@ -66,11 +68,17 @@ export default function Draft() {
     if (value === "") {
       return <p key={index} className="mt-4 text-base">{clause.text}</p>
     } else {
-      const startStr = clause.template[activeTerm].startStr
-      const startIdx = clause.text.indexOf(startStr)
-      const endStr = clause.template[activeTerm].endStr
-      const endIdx = clause.text.indexOf(endStr)
-      return <p key={index} className="mt-4 text-base">{clause.text.substring(0, startIdx + startStr.length + 1)}<span className="underline decoration-sky-500 decoration-4">{value}</span>{clause.text.substring(endIdx, clause.text.length)}</p>
+      let snippets = []
+      clause.template[activeTerm].positions.forEach((position) => {
+        let startStr = position.startStr
+        let startIdx = clause.text.indexOf(startStr)
+        let endStr = position.endStr
+        let endIdx = clause.text.indexOf(endStr)
+        snippets.push(clause.text.substring(0, startIdx + startStr.length + 1))
+        snippets.push(<span className="underline decoration-sky-500 decoration-4">{value}</span>)
+        snippets.push(clause.text.substring(endIdx, clause.text.length))
+      })
+      return <p key={index} className="mt-4 text-base">{snippets}</p>
     }
   }
 

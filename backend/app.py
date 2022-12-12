@@ -29,15 +29,16 @@ async def generate_docx(request: Request):
     for template in templates:
         if template["doc"] == "rofr":
             for _, config in template["template"].items():
-                paragraph = config["paragraph"]
-                run = config["run"]
-                start = config["startStr"]
-                end = config["endStr"]
                 value = config["value"]
-                text = doc.paragraphs[paragraph].runs[run].text
-                start_index = text.find(start)
-                end_index = text.find(end)
-                doc.paragraphs[paragraph].runs[run].text = text[0:start_index + len(start) + 1] + value + text[end_index:len(text)]
+                for position in value["positions"]:
+                    paragraph = position["paragraph"]
+                    run = position["run"]
+                    start = position["startStr"]
+                    end = position["endStr"]
+                    text = doc.paragraphs[paragraph].runs[run].text
+                    start_index = text.find(start)
+                    end_index = text.find(end)
+                    doc.paragraphs[paragraph].runs[run].text = text[0:start_index + len(start) + 1] + value + text[end_index:len(text)]
         doc.save(f"{DOC_DIR}/rofr.docx")
     return {"message": "success"}
 
