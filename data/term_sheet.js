@@ -10,6 +10,12 @@ const termSheet = {
     "display_name": "Company Name",
     "value": "",
     "text": null
+  },
+  "preferred_stock_par_value": {
+    "docs": ["rofr"],
+    "display_name": "Preferred Stock Par Value",
+    "value": "",
+    "text": null
   }
 }
 

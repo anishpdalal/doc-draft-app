@@ -64,6 +64,7 @@ export default function Draft() {
   }
 
   const getClauseText = (clause, index, activeTerm) => {
+    console.log(clause.text)
     const value = clause.template[activeTerm].value
     if (value === "") {
       return <p key={index} className="mt-4 text-base">{clause.text}</p>
@@ -136,7 +137,7 @@ export default function Draft() {
         <button type="button" onClick={handleDownloadButton} className="inline-block px-6 py-2.5 bg-sky-500 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-sky-700 hover:shadow-lg focus:bg-sky-800 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out">Download Documents</button>
       </div>
 
-      <div className="mt-6 flex max-w-4xl flex-wrap justify-around sm:w-full">
+      <div className="mt-6 flex max-w-6xl flex-wrap justify-around sm:w-full">
         <div className="mt-6 w-6/12 rounded-xl border p-6 text-left">
           <h3 className="text-2xl pl-2 font-bold">Terms</h3>
           {Object.keys(terms).filter((term) => includeTerm(term, doc)).map((term) =>
@@ -164,7 +165,7 @@ export default function Draft() {
           )}
         </div>
 
-        <div className="mt-6 w-96 rounded-xl border p-6 text-left">
+        <div className="mt-6 w-96 max-w-md rounded-xl border p-6 text-left">
           <h3 className="text-2xl font-bold">Clauses</h3>
           {clauses.filter((clause) => clause.terms.includes(activeTerm)).map((clause, index) =>
             getClauseText(clause, index, activeTerm)
