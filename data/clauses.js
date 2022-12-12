@@ -25,7 +25,9 @@ const clauseTemplates = [
             "startStr": "among",
             "endStr": ", a Delaware corporation",
             "paragraph": 1,
-            "run": 4
+            "run": 3,
+            "runStartStr": "among",
+            "runEndStr": ", a Delaware corporation",
           }
         ],
         "value": null,
@@ -36,24 +38,53 @@ const clauseTemplates = [
             "startStr": "as of",
             "endStr": " by",
             "paragraph": 1,
-            "run": 4
+            "run": 3,
+            "runStartStr": "as of",
+            "runEndStr": " by",
           }
         ],
         "value": `${getMonth()} ${getDayofMonthWithSuffix()}, ${getYear()}`,
       },
     }
+  },
+  {
+    "text": "WHEREAS, the Company and the Investors are parties to that certain [_____] Preferred Stock Purchase Agreement, of even date herewith (the “Purchase Agreement”), pursuant to which the Investors have agreed to purchase shares of the [_____] Preferred Stock of the Company, par value $__ per share (“[_____] Preferred Stock”);",
+    "doc": "rofr",
+    "terms": ["round"],
+    "template": {
+      "round": {
+        "positions": [
+          {
+            "startStr": "certain",
+            "endStr": " Preferred Stock Purchase Agreement",
+            "paragraph": 3,
+            "run": 1,
+            "runStartStr": "certain",
+            "runEndStr": " Preferred Stock",
+
+          },
+          {
+            "startStr": "shares of the",
+            "endStr": " Preferred Stock of the Company",
+            "paragraph": 3,
+            "run": 5,
+            "runStartStr": "shares of the",
+            "runEndStr": " Preferred Stock",
+          },
+          {
+            "startStr": "per share (",
+            "endStr": " Preferred Stock”);",
+            "paragraph": 3,
+            "run": 7,
+            "runStartStr": "",
+            "runEndStr": " Preferred Stock",
+          }
+        ],
+        "value": null,
+      }
+    }
   }
 ]
-
-  // {
-  //   "text": "WHEREAS, the Company and the Investors are parties to that certain [_____] Preferred Stock Purchase Agreement, of even date herewith (the “Purchase Agreement”), pursuant to which the Investors have agreed to purchase shares of the [_____] Preferred Stock of the Company, par value $__ per share (“[_____] Preferred Stock”);",
-  //   "doc": "rofr",
-  //   "template": {
-  //     "round": {
-  //       "startStr": "of even date herewith (the “",
-  //     }
-  //   }
-  // }
 
 
 export { clauseTemplates }

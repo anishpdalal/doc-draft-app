@@ -69,14 +69,20 @@ export default function Draft() {
       return <p key={index} className="mt-4 text-base">{clause.text}</p>
     } else {
       let snippets = []
-      clause.template[activeTerm].positions.forEach((position) => {
+      let begin = 0
+      clause.template[activeTerm].positions.forEach((position, index) => {
         let startStr = position.startStr
         let startIdx = clause.text.indexOf(startStr)
         let endStr = position.endStr
         let endIdx = clause.text.indexOf(endStr)
-        snippets.push(clause.text.substring(0, startIdx + startStr.length + 1))
-        snippets.push(<span className="underline decoration-sky-500 decoration-4">{value}</span>)
-        snippets.push(clause.text.substring(endIdx, clause.text.length))
+        snippets.push(clause.text.substring(begin, startIdx + startStr.length + 1))
+        snippets.push(<span key={`span_${index}`} className="underline decoration-sky-500 decoration-4">{value}</span>)
+        if (index === clause.template[activeTerm].positions.length - 1) {
+          snippets.push(clause.text.substring(endIdx, clause.text.length))
+        } else {
+          snippets.push(clause.text.substring(endIdx, clause.text.indexOf(clause.template[activeTerm].positions[index + 1].startStr)))
+          begin = clause.text.indexOf(clause.template[activeTerm].positions[index + 1].startStr)
+        }
       })
       return <p key={index} className="mt-4 text-base">{snippets}</p>
     }
