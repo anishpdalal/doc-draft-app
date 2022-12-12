@@ -28,7 +28,11 @@ export default function Draft() {
 
   const handleChange = (event) => {
     const updatedValue = terms[event.target.id]
-    updatedValue.value = event.target.value
+    if (event.target.type === "checkbox") {
+      updatedValue.value = event.target.checked
+    } else {
+      updatedValue.value = event.target.value
+    }
     setTerms({
       ...terms,
       [event.target.id]: updatedValue
@@ -42,9 +46,11 @@ export default function Draft() {
             let startIdx = clause.text.indexOf(startStr)
             let endStr = position.endStr
             let endIdx = clause.text.indexOf(endStr)
-            updatedClause.text = clause.text.substring(0, startIdx + startStr.length + 1) + event.target.value + clause.text.substring(endIdx, clause.text.length)
+            if (event.target.type !== "checkbox") {
+              updatedClause.text = clause.text.substring(0, startIdx + startStr.length + 1) + event.target.checked + clause.text.substring(endIdx, clause.text.length)
+            }
           })
-          updatedClause.template[activeTerm].value = event.target.value
+          updatedClause.template[activeTerm].value = updatedValue.value
           return updatedClause
         } else {
           return clause
@@ -64,10 +70,11 @@ export default function Draft() {
   }
 
   const getClauseText = (clause, index, activeTerm) => {
-    console.log(clause.text)
     const value = clause.template[activeTerm].value
-    if (value === "") {
+    if (value === "" || value === true) {
       return <p key={index} className="mt-4 text-base">{clause.text}</p>
+    } else if (value === false) {
+      return <p key={index} className="mt-4 text-base line-through decoration-red-500">{clause.text}</p>
     } else {
       let snippets = []
       let begin = 0
@@ -147,13 +154,24 @@ export default function Draft() {
               className={`mt-4 p-2 text-xl rounded-md ${activeTerm === term ? "bg-slate-50" : "hover:bg-slate-100"} ${activeTerm !== term && activeTerm !== "" ? "opacity-40" : ""}`}
             >
               <span className="font-bold">{terms[term].display_name}</span>:
-              <input
-                className="shadow appearance-none border rounded-lg w-1/2 text-lg py-1 ml-2 px-3 text-gray-700 bg-gray-50 leading-tight focus:outline-none focus:shadow-outline"
-                id={term}
-                type="text"
-                value={terms[term].value}
-                onChange={handleChange}>
-              </input>
+              {typeof terms[term].value === "string" &&
+                <input
+                  className="shadow appearance-none border rounded-lg w-1/2 text-lg py-1 ml-2 px-3 text-gray-700 bg-gray-50 leading-tight focus:outline-none focus:shadow-outline"
+                  id={term}
+                  type="text"
+                  value={terms[term].value}
+                  onChange={handleChange}>
+                </input>
+              }
+              {typeof terms[term].value === "boolean" &&
+                <input
+                  className="ml-2 h-4 w-4 rounded-full"
+                  id={term}
+                  type="checkbox"
+                  checked={terms[term].value}
+                  onChange={handleChange}>
+                </input>
+              }
               <br />
               {terms[term].text && term !== activeTerm && 
                 <span className="text-base">{terms[term].text.split(" ", 10).join(" ")}...</span>

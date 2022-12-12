@@ -157,6 +157,26 @@ const clauseTemplates = [
     }
   },
   {
+    "text": "“Common Stock” means shares of Common Stock of the Company, [__] par value per share.",
+    "doc": "rofr",
+    "terms": ["common_stock_par_value"],
+    "template": {
+      "common_stock_par_value": {
+        "positions": [
+          {
+            "startStr": "Company,",
+            "endStr": " par value per share.",
+            "paragraph": 11,
+            "run": 2,
+            "runStartStr": "Company,",
+            "runEndStr": " par value per share.",
+          }
+        ],
+        "value": null,
+      }
+    }
+  },
+  {
     "text": "“Investors” means the persons named on Schedule A hereto, each person to whom the rights of an Investor are assigned pursuant to Section 6.9, each person who hereafter becomes a signatory to this Agreement pursuant to Section 6.11 and any one of them, as the context may require; provided, however, that any such person shall cease to be considered an Investor for purposes of this Agreement at any time such person and his, her or its Affiliates collectively hold fewer than [____________] shares of Capital Stock (as adjusted for any stock combination, stock split, stock dividend, recapitalization or other similar transaction).",
     "doc": "rofr",
     "terms": ["investor_rights_threshold"],
@@ -177,21 +197,74 @@ const clauseTemplates = [
     }
   },
   {
-    "text": "“Common Stock” means shares of Common Stock of the Company, [__] par value per share.",
+    "text": "Notice.  Each Key Holder proposing to make a Proposed Key Holder Transfer must deliver a Proposed Transfer Notice to the Company and each Investor not later than [] days prior to the consummation of such Proposed Key Holder Transfer.",
     "doc": "rofr",
-    "terms": ["common_stock_par_value"],
+    "terms": ["proposed_transfer_notice_window"],
     "template": {
-      "common_stock_par_value": {
+      "proposed_transfer_notice_window": {
         "positions": [
           {
-            "startStr": "Company,",
-            "endStr": " par value per share.",
-            "paragraph": 11,
-            "run": 2,
-            "runStartStr": "Company, ",
-            "runEndStr": " par value per share.",
+            "startStr": "later than",
+            "endStr": " days prior",
+            "paragraph": 33,
+            "run": 1,
+            "runStartStr": "later than",
+            "runEndStr": " days prior",
           }
-        ]
+        ],
+        "value": null,
+      }
+    }
+  },
+  {
+    "text": "In the event of a conflict between this Agreement and the Company’s Bylaws containing a preexisting right of first refusal, the terms of the Bylaws will control and compliance with the Bylaws shall be deemed compliance with this Section 2.1(a) and (b) in full.",
+    "doc": "rofr",
+    "terms": ["bylaws_contain_rofr"],
+    "template": {
+      "bylaws_contain_rofr": {
+        "positions": [
+          {
+            "startStr": null,
+            "endStr": null,
+            "paragraph": 33,
+            "run": 9,
+            "runStartStr": ".",
+            "runEndStr": null,
+          },
+          {
+            "startStr": null,
+            "endStr": null,
+            "paragraph": 33,
+            "run": 10,
+            "runStartStr": null,
+            "runEndStr": null,
+          },
+          {
+            "startStr": null,
+            "endStr": null,
+            "paragraph": 33,
+            "run": 11,
+            "runStartStr": null,
+            "runEndStr": null,
+          },
+          {
+            "startStr": null,
+            "endStr": null,
+            "paragraph": 33,
+            "run": 12,
+            "runStartStr": null,
+            "runEndStr": null,
+          },
+          {
+            "startStr": null,
+            "endStr": null,
+            "paragraph": 33,
+            "run": 13,
+            "runStartStr": null,
+            "runEndStr": null,
+          }
+        ],
+        "value": null,
       }
     }
   }

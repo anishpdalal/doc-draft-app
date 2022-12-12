@@ -1,13 +1,13 @@
 const termSheet = {
-  "round": {
-    "docs": ["rofr"],
-    "display_name": "Fundraising Round",
-    "value": "",
-    "text": null
-  },
   "company_name": {
     "docs": ["rofr"],
     "display_name": "Company Name",
+    "value": "",
+    "text": null
+  },
+  "round": {
+    "docs": ["rofr"],
+    "display_name": "Fundraising Round",
     "value": "",
     "text": null
   },
@@ -29,6 +29,18 @@ const termSheet = {
     "value": "",
     "text": null
   },
+  "proposed_transfer_notice_window": {
+    "docs": ["rofr"],
+    "display_name": "Proposed Transfer Notice Window",
+    "value": "forty-five (45)",
+    "text": null
+  },
+  "bylaws_contain_rofr": {
+    "docs": ["rofr"],
+    "display_name": "Bylaws Contain ROFR",
+    "value": true,
+    "text": null
+  }
 }
 
 export { termSheet }
