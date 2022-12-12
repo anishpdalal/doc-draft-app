@@ -156,6 +156,26 @@ const clauseTemplates = [
       }
     }
   },
+  {
+    "text": "“Investors” means the persons named on Schedule A hereto, each person to whom the rights of an Investor are assigned pursuant to Section 6.9, each person who hereafter becomes a signatory to this Agreement pursuant to Section 6.11 and any one of them, as the context may require; provided, however, that any such person shall cease to be considered an Investor for purposes of this Agreement at any time such person and his, her or its Affiliates collectively hold fewer than [____________] shares of Capital Stock (as adjusted for any stock combination, stock split, stock dividend, recapitalization or other similar transaction).",
+    "doc": "rofr",
+    "terms": ["investor_rights_threshold"],
+    "template": {
+      "investor_rights_threshold": {
+        "positions": [
+          {
+            "startStr": "fewer than",
+            "endStr": " shares of Capital Stock",
+            "paragraph": 17,
+            "run": 12,
+            "runStartStr": "fewer than",
+            "runEndStr": " shares of Capital Stock",
+          }
+        ],
+        "value": null,
+      }
+    }
+  }
 ]
 
 

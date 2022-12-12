@@ -16,6 +16,12 @@ const termSheet = {
     "display_name": "Preferred Stock Par Value",
     "value": "",
     "text": null
+  },
+  "investor_rights_threshold": {
+    "docs": ["rofr"],
+    "display_name": "Investor Rights Share Threshold",
+    "value": "",
+    "text": null
   }
 }
 
