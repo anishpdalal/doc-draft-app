@@ -15,6 +15,26 @@ const getMonth = () => {
 
 const clauseTemplates = [
   {
+    "text": `THIS VOTING AGREEMENT (this “Agreement”) is made and entered into as of ${getMonth()} ${getDayofMonthWithSuffix()}, ${getYear()} by and among [_____], a Delaware corporation (the “Company”), each holder of the [_____] Preferred Stock, $[___] par value per share, of the Company (“[_____] Preferred Stock”), (referred to herein as the “Preferred Stock”) listed on Schedule A (together with any subsequent investors, or transferees, who become parties hereto as “Investors” pursuant to Sections 7.1(a) or 7.2 below, the “Investors”), and those certain stockholders of the Company listed on Schedule B (together with any subsequent stockholders, or any transferees, who become parties hereto as “Key Holders” pursuant to Sections 7.1(b) or 7.2 below, the “Key Holders,” and together collectively with the Investors, the “Stockholders”).`,
+    "doc": "voting",
+    "terms": ["company_name"],
+    "template": {
+      "company_name": {
+        "positions": [
+          {
+            "startStr": "among",
+            "endStr": ", a Delaware corporation",
+            "paragraph": 1,
+            "run": 2,
+            "runStartStr": "among",
+            "runEndStr": ", a Delaware corporation",
+          }
+        ],
+        "value": null,
+      }
+    }
+  },
+  {
     "text": `This Right of First Refusal and Co-Sale Agreement (this “Agreement”), is made as of ${getMonth()} ${getDayofMonthWithSuffix()}, ${getYear()} by and among [_____], a Delaware corporation (the “Company”), the Investors (as defined below) listed on Schedule A and the Key Holders (as defined below) listed on Schedule B.`,
     "doc": "rofr",
     "terms": ["company_name"],

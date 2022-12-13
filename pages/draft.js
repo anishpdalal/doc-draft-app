@@ -21,6 +21,15 @@ export default function Draft() {
       clauseTemplates.forEach((clause) => {
         if (clause.terms.includes(term)){
           clause.template[term].value = termSheet[term].value
+          clause.template[term].positions.forEach((position) => {
+            let startStr = position.startStr
+            let startIdx = clause.text.indexOf(startStr)
+            let endStr = position.endStr
+            let endIdx = clause.text.indexOf(endStr)
+            if (typeof termSheet[term].value !== "boolean") {
+              clause.text = clause.text.substring(0, startIdx + startStr.length + 1) + termSheet[term].value + clause.text.substring(endIdx, clause.text.length)
+            }
+          })
         }
       })
     })
@@ -48,7 +57,7 @@ export default function Draft() {
             let endStr = position.endStr
             let endIdx = clause.text.indexOf(endStr)
             if (event.target.type !== "checkbox") {
-              updatedClause.text = clause.text.substring(0, startIdx + startStr.length + 1) + event.target.checked + clause.text.substring(endIdx, clause.text.length)
+              updatedClause.text = clause.text.substring(0, startIdx + startStr.length + 1) + event.target.value + clause.text.substring(endIdx, clause.text.length)
             }
           })
           updatedClause.template[activeTerm].value = updatedValue.value
@@ -186,7 +195,7 @@ export default function Draft() {
 
         <div className="mt-6 w-96 max-w-md rounded-xl border p-6 text-left">
           <h3 className="text-2xl font-bold">Clauses</h3>
-          {clauses.filter((clause) => clause.terms.includes(activeTerm)).map((clause, index) =>
+          {clauses.filter((clause) => clause.terms.includes(activeTerm) && clause.doc === doc).map((clause, index) =>
             getClauseText(clause, index, activeTerm)
           )}
         </div>

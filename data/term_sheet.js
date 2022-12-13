@@ -1,20 +1,20 @@
 const termSheet = {
   "company_name": {
-    "docs": ["rofr"],
+    "docs": ["rofr", "voting"],
     "display_name": "Company Name",
-    "value": "",
+    "value": "NLP Labs, Inc.",
     "text": null
   },
   "round": {
-    "docs": ["rofr"],
+    "docs": ["rofr", "voting"],
     "display_name": "Fundraising Round",
-    "value": "",
+    "value": "Series Seed",
     "text": null
   },
   "preferred_stock_par_value": {
     "docs": ["rofr"],
     "display_name": "Preferred Stock Par Value",
-    "value": "",
+    "value": "0.0001",
     "text": null
   },
   "common_stock_par_value": {
