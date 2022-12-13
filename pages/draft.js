@@ -161,7 +161,7 @@ export default function Draft() {
             <p
               key={term}
               onClick={(e) => setActiveTerm(term)}
-              className={`mt-4 p-2 text-xl rounded-md ${activeTerm === term ? "bg-slate-50" : "hover:bg-slate-100"} ${activeTerm !== term && activeTerm !== "" ? "opacity-40" : ""}`}
+              className={`mt-4 p-2 text-md rounded-md ${activeTerm === term ? "bg-slate-50" : "hover:bg-slate-100"} ${activeTerm !== term && activeTerm !== "" ? "opacity-40" : ""}`}
             >
               <span className="font-bold">{terms[term].display_name}</span>:
               {typeof terms[term].value === "string" &&

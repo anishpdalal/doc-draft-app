@@ -18,9 +18,9 @@ const termSheet = {
     "text": null
   },
   "common_stock_par_value": {
-    "docs": ["rofr"],
+    "docs": ["rofr", "voting"],
     "display_name": "Common Stock Par Value",
-    "value": "",
+    "value": "0.0001",
     "text": null
   },
   "investor_rights_threshold": {
@@ -38,6 +38,60 @@ const termSheet = {
   "bylaws_contain_rofr": {
     "docs": ["rofr"],
     "display_name": "Bylaws Contain ROFR",
+    "value": true,
+    "text": null
+  },
+  "preferred_stock_num_directors": {
+    "docs": ["voting"],
+    "display_name": "Preferred Stock Number of Directors",
+    "value": "one (1)",
+    "text": null
+  },
+  "investor_name": {
+    "docs": ["voting"],
+    "display_name": "Lead Investor Name",
+    "value": "Stark Ventures",
+    "text": null
+  },
+  "preferred_stock_director": {
+    "docs": ["voting"],
+    "display_name": "Preferred Stock Director Name",
+    "value": "Sansa Stark",
+    "text": null
+  },
+  "investor_common_stock_threshold": {
+    "docs": ["voting"],
+    "display_name": "Investor Common Stock Share Threshold",
+    "value": "",
+    "text": null
+  },
+  "common_stock_num_directors": {
+    "docs": ["voting"],
+    "display_name": "Common Stock Number of Directors",
+    "value": "two (2)",
+    "text": null
+  },
+  "ceo": {
+    "docs": ["voting"],
+    "display_name": "Common Stock Director Name (CEO)",
+    "value": "Taher Hassonjee",
+    "text": null
+  },
+  "non_ceo_common_director": {
+    "docs": ["voting"],
+    "display_name": "Common Stock Director Name",
+    "value": "",
+    "text": null
+  },
+  "key_holder_stock_threshold": {
+    "docs": ["voting"],
+    "display_name": "Key Holder Stock Share Threshold",
+    "value": "",
+    "text": null
+  },
+  "drag_along_clause": {
+    "docs": ["voting"],
+    "display_name": "Drag Along Clause Included",
     "value": true,
     "text": null
   }
