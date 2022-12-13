@@ -28,7 +28,6 @@ async def generate_docx(request: Request):
     templates = body["clauses"]
     doc_type = body["doc"]
 
-    print(doc_type)
 
     if doc_type == "rofr":
         doc = docx.Document(f"{DOC_DIR}/NVCA-2020-Right-of-First-Refusal-Template.docx")
@@ -37,7 +36,6 @@ async def generate_docx(request: Request):
     else:
         return {"message": "success"}
 
-    print(len(doc.paragraphs))
 
     for template in templates:
         if template["doc"] != doc_type:
@@ -47,7 +45,6 @@ async def generate_docx(request: Request):
             for position in config["positions"]:
                 paragraph = position["paragraph"]
                 run = position["run"]
-                print(paragraph, run)
                 text = doc.paragraphs[paragraph].runs[run].text
                 start = position["runStartStr"]
                 end = position["runEndStr"]
@@ -63,6 +60,13 @@ async def generate_docx(request: Request):
 
 @web_app.get("/download")
 def download(doc: str):
+    if doc == "voting":
+        doc = "NVCA_Voting_Agreement_Demo.docx"
+        return FileResponse(
+            f"{DOC_DIR}/{doc}",
+            media_type="application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+            headers={"Content-Disposition": f"attachment; filename=NVCA_Voting_Agreement.docx"},
+        )
     return FileResponse(
         f"{DOC_DIR}/{doc}.docx",
         media_type="application/vnd.openxmlformats-officedocument.wordprocessingml.document",
