@@ -8,6 +8,7 @@ export default function Draft() {
   const options = [
     {value: "", text: "-- Choose a Document --"},
     {value: "rofr", text: "NVCA Right of First Refusal"},
+    {value: "voting", text: "NVCA Voting Agreement"},
   ]
 
   const [doc, setDocument] = useState(options[0].value)
