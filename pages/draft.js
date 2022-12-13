@@ -26,7 +26,7 @@ export default function Draft() {
             let startIdx = clause.text.indexOf(startStr)
             let endStr = position.endStr
             let endIdx = clause.text.indexOf(endStr)
-            if (typeof termSheet[term].value !== "boolean") {
+            if (typeof termSheet[term].value !== "boolean" && termSheet[term].value !== "") {
               clause.text = clause.text.substring(0, startIdx + startStr.length + 1) + termSheet[term].value + clause.text.substring(endIdx, clause.text.length)
             }
           })
@@ -111,10 +111,10 @@ export default function Draft() {
     let requestOptions = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(clauses),
+      body: JSON.stringify({"clauses": clauses, "doc": doc}),
     }
     await fetch(url, requestOptions).then(res => res.json())
-    url = "https://anishpdalal--doc-draft-fastapi-app-dev.modal.run/rofr"
+    url = `https://anishpdalal--doc-draft-fastapi-app-dev.modal.run/download?doc=${doc}`
     await fetch(url)
       .then((res) => res.blob())
       .then((blob) => {

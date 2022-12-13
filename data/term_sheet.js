@@ -12,7 +12,7 @@ const termSheet = {
     "text": null
   },
   "preferred_stock_par_value": {
-    "docs": ["rofr"],
+    "docs": ["rofr", "voting"],
     "display_name": "Preferred Stock Par Value",
     "value": "0.0001",
     "text": null
